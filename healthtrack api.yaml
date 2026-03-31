@@ -1,0 +1,20 @@
+info:
+  title: HealthTrack API
+  version: '1.0'
+openapi: 3.0.0
+paths:
+  /alerts:
+    get:
+      summary: View alerts
+  /appointments:
+    post:
+      summary: Create appointment
+  /patients:
+    get:
+      summary: List patients
+  /patients/{id}:
+    get:
+      summary: Get patient
+  /patients/{id}/readings:
+    post:
+      summary: Add reading

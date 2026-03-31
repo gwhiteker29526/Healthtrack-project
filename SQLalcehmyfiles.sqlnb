@@ -1,0 +1,93 @@
+cells:
+  - kind: 2
+    value: "from sqlalchemy import Column, Integer, String, Float, DateTime,
+      ForeignKey\r
+
+      from sqlalchemy.orm import relationship\r
+
+      from database import Base\r
+
+      import models \r
+
+      models.Base.metadata.create_all(build=engine) \r
+
+      from datetime import datetime\r
+
+      \r
+
+      class Patient(Base):\r
+
+      \    __tablename__ = \"patients\"\r
+
+      \r
+
+      \    id = Column(Integer, primary_key=True, index=True)\r
+
+      \    name = Column(String(100), nullable=False)\r
+
+      \    email = Column(String(100), unique=True, nullable=False)\r
+
+      \    age = Column(Integer, nullable=False)\r
+
+      \    created_at = Column(DateTime, default=datetime.utcnow)\r
+
+      \r
+
+      \    vital_signs = relationship(\"VitalSigns\",
+      back_populates=\"patient\", cascade=\"all, delete\")\r
+
+      \    activities = relationship(\"ActivityData\",
+      back_populates=\"patient\", cascade=\"all, delete\")\r
+
+      \r
+
+      \r
+
+      class VitalSigns(Base):\r
+
+      \    __tablename__ = \"vital_signs\"\r
+
+      \r
+
+      \    id = Column(Integer, primary_key=True)\r
+
+      \    patient_id = Column(Integer, ForeignKey(\"patients.id\"),
+      nullable=False)\r
+
+      \    heart_rate = Column(Integer, nullable=False)\r
+
+      \    blood_pressure = Column(String(20))\r
+
+      \    temperature = Column(Float)\r
+
+      \    recorded_at = Column(DateTime, default=datetime.utcnow)\r
+
+      \r
+
+      \    patient = relationship(\"Patient\", back_populates=\"vital_signs\")\r
+
+      \r
+
+      \r
+
+      class ActivityData(Base):\r
+
+      \    __tablename__ = \"activity_data\"\r
+
+      \r
+
+      \    id = Column(Integer, primary_key=True)\r
+
+      \    patient_id = Column(Integer, ForeignKey(\"patients.id\"),
+      nullable=False)\r
+
+      \    steps = Column(Integer, default=0)\r
+
+      \    calories_burned = Column(Float)\r
+
+      \    recorded_at = Column(DateTime, default=datetime.utcnow)\r
+
+      \r
+
+      \    patient = relationship(\"Patient\", back_populates=\"activities\")"
+    languageId: oracle-sql
