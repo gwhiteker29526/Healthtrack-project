@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List
 from risk import calculate_risk
-from crud import create_risk_assessment, get_risk_for_patient, get_risks_for_patient
+from crud import create_risk_assessment, get_risks_for_patient
 import models
 import schemas
 import crud
