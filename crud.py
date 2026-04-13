@@ -1,10 +1,10 @@
 from sqlalchemy.orm import Session
-import models
 from models import Patient, VitalSigns, ActivityData, RiskAssessment, Alert
 from risk import calculate_risk
+import models
+from models import RiskAssessment 
 
-# -----------------------------
-# PATIENT CRUD (OPTIMIZED)
+
 # -----------------------------
 def create_patient(db: Session, patient):
     db_patient = Patient(**patient.dict())
@@ -27,8 +27,8 @@ def delete_patient(db: Session, patient_id: int):
     return patient
 
 
-# -----------------------------
-# VITAL SIGNS (OPTIMIZED)
+
+
 # -----------------------------
 def add_vitals(db: Session, patient_id: int, vitals):
     record = VitalSigns(patient_id=patient_id, **vitals.dict())
@@ -52,8 +52,8 @@ def get_vitals_by_date(db: Session, patient_id: int, start, end):
         ).all()
 
 
-# -----------------------------
-# ACTIVITY DATA (OPTIMIZED)
+
+
 # -----------------------------
 def add_activity(db: Session, patient_id: int, activity):
     record = ActivityData(patient_id=patient_id, **activity.dict())
@@ -70,8 +70,8 @@ def get_activities(db: Session, patient_id: int, limit: int = 50):
         .all()
 
 
-# -----------------------------
-# ALERTS (CLEANED + OPTIMIZED)
+
+
 # -----------------------------
 def create_alert(db: Session, patient_id: int, message: str, severity: str, type: str = "vital"):
     alert = Alert(
@@ -102,8 +102,6 @@ def acknowledge_alert(db: Session, alert_id: int):
     return alert
 
 
-# -----------------------------
-# RISK (OPTIMIZED)
 # -----------------------------
 def create_risk_assessment(db: Session, patient_id: int, vitals, activities):
     score, level, factors, recommendation = calculate_risk(vitals, activities)
